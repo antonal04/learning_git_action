@@ -1,0 +1,44 @@
+name: Environment Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: Development
+
+    steps:
+      - name: Show Environment
+        run: echo "Deploying to Development"
+
+      - name: Read Secret
+        run: echo "API URL = ${{ secrets.API_URL }}"
+
+  deploy-qa:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: QA
+
+    steps:
+      - run: echo "Deploying to QA"
+      - run: echo "API URL = ${{ secrets.API_URL }}"
+
+  deploy-staging:
+    needs: deploy-qa
+    runs-on: ubuntu-latest
+    environment: Staging
+
+    steps:
+      - run: echo "Deploying to Staging"
+      - run: echo "API URL = ${{ secrets.API_URL }}"
+
+  deploy-production:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: Production
+
+    steps:
+      - run: echo "Deploying to Production"
+      - run: echo "API URL = ${{ secrets.API_URL }}"
