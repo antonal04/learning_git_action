@@ -51,7 +51,13 @@ jobs:
           path: target/*.jar
 
       - name: Run Application
-        run: java -jar target/*.jar
+        run: |
+          java -jar target/*.jar &
+          APP_PID=$!
+          
+          sleep 20
+          
+          kill $APP_PID
         env:
           DB_URL: ${{secrets.DB_URL}}
           DB_USERNAME: ${{secrets.DB_USERNAME}}
