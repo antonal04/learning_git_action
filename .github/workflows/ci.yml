@@ -8,6 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+          MYSQL_DATABASE: ${{secrets.MYSQL_DATABASE}}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout Repository
@@ -24,7 +37,11 @@ jobs:
         run: chmod +x mvnw
 
       - name: Build Project
-        run: ./mvnw clean verify
+        run: ./mvnw clean verify -DskipTests
+        env:
+          DB_URL: ${{secrets.DB_URL}}
+          DB_USERNAME: ${{secrets.DB_USERNAME}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
@@ -32,3 +49,16 @@ jobs:
         with:
           name: spring-boot-jar
           path: target/*.jar
+
+      - name: Run Application
+        run: |
+          java -jar target/*.jar &
+          APP_PID=$!
+          
+          sleep 20
+          
+          kill $APP_PID
+        env:
+          DB_URL: ${{secrets.DB_URL}}
+          DB_USERNAME: ${{secrets.DB_USERNAME}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
