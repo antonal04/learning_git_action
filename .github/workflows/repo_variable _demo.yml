@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build
-        run: echo"Building.."
+        run: echo "Building.."
 
       - name: Deploy
         if: github.ref_name == 'master'
