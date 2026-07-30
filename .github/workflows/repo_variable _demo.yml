@@ -19,3 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Deploying to ${{inputs.environment}}"
+
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Repository = ${{github.repository}}"
+      - run: echo "Branch = ${{github.ref_name}}"
+      - run: echo "Triggered By = ${{github.actor}}"
+      - run: echo "Workflow = ${{github.workflow}}"
