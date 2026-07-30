@@ -1,0 +1,15 @@
+name: Workflow Level Variable Demo
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: Employee Service
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Application Name
+        run: echo "Application= $APP_NAME"
