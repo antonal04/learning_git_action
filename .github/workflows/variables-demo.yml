@@ -22,3 +22,8 @@ jobs:
 
       - name: check Java Version
         run: java -version
+
+      - name: Step Variable
+        env:
+          MESSAGE: Welcome to the Project
+        run: echo "$MESSAGE"
