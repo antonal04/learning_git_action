@@ -1,4 +1,4 @@
-name: Workflow Level Variable Demo
+name: Workflow_Level_Variable_Demo
 
 on:
   workflow_dispatch:
@@ -18,5 +18,7 @@ jobs:
         run: echo "Application= $APP_NAME"
 
       - name: Print Java
-      - run: echo "Java Version= $JAVA_VERSION"
-      - run: java -version
+        run: echo "Java Version= $JAVA_VERSION"
+
+      - name: check Java Version
+        run: java -version
