@@ -1,6 +1,11 @@
 name: repo_variable _demo.yml
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Deployment Environment
+        required: true
+        default: Development
 
 jobs:
   build:
@@ -9,3 +14,8 @@ jobs:
     steps:
       - name: Repo Variable
         run: echo "${{vars.APP_NAME}}"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying to ${{inputs.environment}}"
