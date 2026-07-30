@@ -1,25 +1,32 @@
 name: repo_variable _demo.yml
 on:
   workflow_dispatch:
-    inputs:
+    inputs:  #input environment
       environment:
         description: Deployment Environment
         required: true
         default: Development
 
 jobs:
+#call repo Variable
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Repo Variable
         run: echo "${{vars.APP_NAME}}"
-
+#input envionment call
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Deploying to ${{inputs.environment}}"
+      - name: Build
+        run: echo"Building.."
 
+      - name: Deploy
+        if: github.ref_name == 'master'
+        run: echo "Deploying to ${{inputs.environment}}"
+
+#GitHub Contexts
   info:
     runs-on: ubuntu-latest
     steps:
