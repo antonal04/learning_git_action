@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       fail-fast: true
-      max-parallel: 2
+#      max-parallel: 2
       matrix:
         os:
           - ubuntu-latest
@@ -29,8 +29,8 @@ jobs:
           java-version: ${{matrix.java}}
 
       - name: Make mvnw executable (Linux/macOS)
-#        if: runner.os != 'Windows'
-        run: chmod +x mvnw
+        if: runner.os != 'Windows'
+#        run: chmod +x mvnw
 
       - name: build application
         run: ./mvnw clean verify -DskipTests
