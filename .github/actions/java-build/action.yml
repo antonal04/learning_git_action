@@ -1,0 +1,5 @@
+name: java-build
+author: Anton Aloy
+description: java-build
+runs:
+  using:

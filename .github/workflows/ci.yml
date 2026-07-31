@@ -1,9 +1,11 @@
 name: Spring Boot CI
 
 on:
-  pull_request:
-    branches:
-      - master
+#  pull_request:
+#    branches:
+#      - master
+  workflow_call:
+
 
 jobs:
   build:
