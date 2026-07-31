@@ -20,6 +20,10 @@ jobs:
           - os: windows-latest
             java: 17
 
+        include:
+          - os: ubuntu-latest
+            java: 22
+
     runs-on: ${{matrix.os}}
 
     steps:
