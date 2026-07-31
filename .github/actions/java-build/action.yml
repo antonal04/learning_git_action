@@ -1,5 +1,59 @@
 name: java-build
 author: Anton Aloy
 description: java-build
+
+inputs:
+  java-version:
+    required: true
+
+    db-url:
+      required: true
+
+    db-username:
+      required: true
+
+    db-password:
+      required: true
+
 runs:
-  using:
+  using: composite
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Java 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: ${{inputs.java-version}}
+        cache: maven
+
+    - name: Grant execute permission to Maven Wrapper
+      run: chmod +x mvnw
+
+    - name: Build Project
+      run: ./mvnw clean verify -DskipTests
+      env:
+        DB_URL: ${{secrets.DB_URL}}
+        DB_USERNAME: ${{secrets.DB_USERNAME}}
+        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+
+    - name: Upload JAR
+      uses: actions/upload-artifact@v4
+
+      with:
+        name: spring-boot-jar
+        path: target/*.jar
+
+    - name: Run Application
+      run: |
+        java -jar target/*.jar &
+        APP_PID=$!
+
+        sleep 20
+
+        kill $APP_PID
+      env:
+        DB_URL: ${{secrets.DB_URL}}
+        DB_USERNAME: ${{secrets.DB_USERNAME}}
+        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
