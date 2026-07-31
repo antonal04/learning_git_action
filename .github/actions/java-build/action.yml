@@ -6,14 +6,14 @@ inputs:
   java-version:
     required: true
 
-    db-url:
-      required: true
+  db-url:
+    required: true
 
-    db-username:
-      required: true
+  db-username:
+    required: true
 
-    db-password:
-      required: true
+  db-password:
+    required: true
 
 runs:
   using: composite
@@ -34,9 +34,9 @@ runs:
     - name: Build Project
       run: ./mvnw clean verify -DskipTests
       env:
-        DB_URL: ${{secrets.DB_URL}}
-        DB_USERNAME: ${{secrets.DB_USERNAME}}
-        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+        DB_URL: ${{inputs.DB_URL}}
+        DB_USERNAME: ${{inputs.DB_USERNAME}}
+        DB_PASSWORD: ${{inputs.DB_PASSWORD}}
 
     - name: Upload JAR
       uses: actions/upload-artifact@v4
@@ -54,6 +54,6 @@ runs:
 
         kill $APP_PID
       env:
-        DB_URL: ${{secrets.DB_URL}}
-        DB_USERNAME: ${{secrets.DB_USERNAME}}
-        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+        DB_URL: ${{inputs.DB_URL}}
+        DB_USERNAME: ${{inputs.DB_USERNAME}}
+        DB_PASSWORD: ${{inputs.DB_PASSWORD}}
