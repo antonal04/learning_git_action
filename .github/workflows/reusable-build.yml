@@ -7,4 +7,6 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/ci.yml
+    with:
+      java-version: "17"
     secrets: inherit
