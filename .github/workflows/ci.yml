@@ -17,6 +17,11 @@ on:
       DB_PASSWORD:
         required: true
 
+    inputs:
+      java-version:
+        required: true
+        type: string
+
 
 jobs:
   build:
