@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     strategy:
-      fail-fast: false
+      fail-fast: true
       max-parallel: 2
       matrix:
         os:
@@ -29,7 +29,7 @@ jobs:
           java-version: ${{matrix.java}}
 
       - name: Make mvnw executable (Linux/macOS)
-        if: runner.os != 'Windows'
+#        if: runner.os != 'Windows'
         run: chmod +x mvnw
 
       - name: build application
