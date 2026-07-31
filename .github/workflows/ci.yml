@@ -41,6 +41,9 @@ jobs:
           --health-retries=5
 
     steps:
+      - - name: Checkout Repository
+      - uses: actions/checkout@v4
+
       - name: List action file
         run: |
           ls -R .github
