@@ -28,8 +28,8 @@ jobs:
           distribution: temurin
           java-version: ${{matrix.java}}
 
-      - name: Make mvnw executable (Linux/macOS)
-        if: runner.os != 'Windows'
+#      - name: Make mvnw executable (Linux/macOS)
+#        if: runner.os != 'Windows'
 #        run: chmod +x mvnw
 
       - name: build application
