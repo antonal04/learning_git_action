@@ -43,7 +43,7 @@ jobs:
     steps:
       - name: List action file
         run: |
-          ls -R .gitHub
+          ls -R .github
       - uses: ./.github/actions/java-build
         with:
           java-version: ${{inputs.java-version}}
