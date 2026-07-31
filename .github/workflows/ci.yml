@@ -41,6 +41,9 @@ jobs:
           --health-retries=5
 
     steps:
+      - name: List action file
+        run: |
+          ls -R .gitHub
       - uses: ./.github/actions/java-build
         with:
           java-version: ${{inputs.java-version}}
