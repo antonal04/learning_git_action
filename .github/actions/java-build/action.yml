@@ -4,46 +4,55 @@ description: java-build
 
 inputs:
   java-version:
+    description: Java version
     required: true
 
   db-url:
+    description: Database URL
     required: true
 
   db-username:
+    description: Database username
     required: true
 
   db-password:
+    description: Database password
     required: true
 
 runs:
   using: composite
   steps:
 
-    - name: Setup Java 17
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: temurin
-        java-version: ${{inputs.java-version}}
+        java-version: ${{ inputs.java-version }}
         cache: maven
 
     - name: Grant execute permission to Maven Wrapper
+      shell: bash
       run: chmod +x mvnw
 
     - name: Build Project
+      shell: bash
       run: ./mvnw clean verify -DskipTests
       env:
-        DB_URL: ${{inputs.DB_URL}}
-        DB_USERNAME: ${{inputs.DB_USERNAME}}
-        DB_PASSWORD: ${{inputs.DB_PASSWORD}}
+        DB_URL: ${{ inputs.db-url }}
+        DB_USERNAME: ${{ inputs.db-username }}
+        DB_PASSWORD: ${{ inputs.db-password }}
 
     - name: Upload JAR
       uses: actions/upload-artifact@v4
-
       with:
         name: spring-boot-jar
         path: target/*.jar
 
     - name: Run Application
+      shell: bash
       run: |
         java -jar target/*.jar &
         APP_PID=$!
@@ -52,6 +61,6 @@ runs:
 
         kill $APP_PID
       env:
-        DB_URL: ${{inputs.DB_URL}}
-        DB_USERNAME: ${{inputs.DB_USERNAME}}
-        DB_PASSWORD: ${{inputs.DB_PASSWORD}}
+        DB_URL: ${{ inputs.db-url }}
+        DB_USERNAME: ${{ inputs.db-username }}
+        DB_PASSWORD: ${{ inputs.db-password }}
