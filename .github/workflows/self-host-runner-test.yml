@@ -2,7 +2,8 @@ name: Windows Self Hosted Runner Test
 
 on:
   push:
-
+    branches:
+      - login-feature
 
 jobs:
 
