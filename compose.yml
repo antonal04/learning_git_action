@@ -18,6 +18,9 @@ services:
 
 
   learning-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
 
     image: learning:1.0
 
