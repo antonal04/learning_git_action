@@ -40,3 +40,6 @@ jobs:
 
       - name: Compose status
         run: docker compose ps
+
+      - name: docker learnign run
+        run: docker logs -f learning-service
