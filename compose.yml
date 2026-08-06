@@ -48,3 +48,4 @@ networks:
 
   learning-network:
     external: true
+    driver: bridge
