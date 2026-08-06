@@ -1,29 +1,29 @@
-name: Workflow_Level_Variable_Demo
-
-on:
-  workflow_dispatch:
-
-env:
-  APP_NAME: Employee Service
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    env:
-      JAVA_VERSION: 21
-
-    steps:
-      - name: Print Application Name
-        run: echo "Application= $APP_NAME"
-
-      - name: Print Java
-        run: echo "Java Version= $JAVA_VERSION"
-
-      - name: check Java Version
-        run: java -version
-
-      - name: Step Variable
-        env:
-          MESSAGE: Welcome to the Project
-        run: echo "$MESSAGE"
+#name: Workflow_Level_Variable_Demo
+#
+#on:
+#  workflow_dispatch:
+#
+#env:
+#  APP_NAME: Employee Service
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    env:
+#      JAVA_VERSION: 21
+#
+#    steps:
+#      - name: Print Application Name
+#        run: echo "Application= $APP_NAME"
+#
+#      - name: Print Java
+#        run: echo "Java Version= $JAVA_VERSION"
+#
+#      - name: check Java Version
+#        run: java -version
+#
+#      - name: Step Variable
+#        env:
+#          MESSAGE: Welcome to the Project
+#        run: echo "$MESSAGE"

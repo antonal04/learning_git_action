@@ -1,95 +1,95 @@
-name: Spring Boot CI
-
-on:
-#  pull_request:
-#    branches:
-#      - master
-  workflow_call:
-    secrets:  #share secrets to reusable-build.yml
-      MYSQL_ROOT_PASSWORD:
-        required: true
-      MYSQL_DATABASE:
-        required: true
-      DB_URL:
-        required: true
-      DB_USERNAME:
-        required: true
-      DB_PASSWORD:
-        required: true
-
-    inputs:   #input from reusable-build.yml
-      java-version:
-        required: true
-        type: string
-
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
-          MYSQL_DATABASE: ${{secrets.MYSQL_DATABASE}}
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: List action file
-        run: |
-          ls -R .github
-      - uses: ./.github/actions/java-build
-        with:
-          java-version: ${{inputs.java-version}}
-          db-url: ${{secrets.DB_URL}}
-          db-username: ${{ secrets.DB_USERNAME }}
-          db-password: ${{ secrets.DB_PASSWORD }}
-
+#name: Spring Boot CI
+#
+#on:
+##  pull_request:
+##    branches:
+##      - master
+#  workflow_call:
+#    secrets:  #share secrets to reusable-build.yml
+#      MYSQL_ROOT_PASSWORD:
+#        required: true
+#      MYSQL_DATABASE:
+#        required: true
+#      DB_URL:
+#        required: true
+#      DB_USERNAME:
+#        required: true
+#      DB_PASSWORD:
+#        required: true
+#
+#    inputs:   #input from reusable-build.yml
+#      java-version:
+#        required: true
+#        type: string
+#
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    services:
+#      mysql:
+#        image: mysql:8.0
+#        env:
+#          MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+#          MYSQL_DATABASE: ${{secrets.MYSQL_DATABASE}}
+#        ports:
+#          - 3306:3306
+#        options: >-
+#          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
+#          --health-interval=10s
+#          --health-timeout=5s
+#          --health-retries=5
+#
+#    steps:
 #      - name: Checkout Repository
 #        uses: actions/checkout@v4
 #
-#      - name: Setup Java 17
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: temurin
-#          java-version: ${{inputs.java-version}}
-#          cache: maven
-#
-#      - name: Grant execute permission to Maven Wrapper
-#        run: chmod +x mvnw
-#
-#      - name: Build Project
-#        run: ./mvnw clean verify -DskipTests
-#        env:
-#          DB_URL: ${{secrets.DB_URL}}
-#          DB_USERNAME: ${{secrets.DB_USERNAME}}
-#          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-#
-#      - name: Upload JAR
-#        uses: actions/upload-artifact@v4
-#
-#        with:
-#          name: spring-boot-jar
-#          path: target/*.jar
-#
-#      - name: Run Application
+#      - name: List action file
 #        run: |
-#          java -jar target/*.jar &
-#          APP_PID=$!
+#          ls -R .github
+#      - uses: ./.github/actions/java-build
+#        with:
+#          java-version: ${{inputs.java-version}}
+#          db-url: ${{secrets.DB_URL}}
+#          db-username: ${{ secrets.DB_USERNAME }}
+#          db-password: ${{ secrets.DB_PASSWORD }}
 #
-#          sleep 20
-#
-#          kill $APP_PID
-#        env:
-#          DB_URL: ${{secrets.DB_URL}}
-#          DB_USERNAME: ${{secrets.DB_USERNAME}}
-#          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+##      - name: Checkout Repository
+##        uses: actions/checkout@v4
+##
+##      - name: Setup Java 17
+##        uses: actions/setup-java@v4
+##        with:
+##          distribution: temurin
+##          java-version: ${{inputs.java-version}}
+##          cache: maven
+##
+##      - name: Grant execute permission to Maven Wrapper
+##        run: chmod +x mvnw
+##
+##      - name: Build Project
+##        run: ./mvnw clean verify -DskipTests
+##        env:
+##          DB_URL: ${{secrets.DB_URL}}
+##          DB_USERNAME: ${{secrets.DB_USERNAME}}
+##          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+##
+##      - name: Upload JAR
+##        uses: actions/upload-artifact@v4
+##
+##        with:
+##          name: spring-boot-jar
+##          path: target/*.jar
+##
+##      - name: Run Application
+##        run: |
+##          java -jar target/*.jar &
+##          APP_PID=$!
+##
+##          sleep 20
+##
+##          kill $APP_PID
+##        env:
+##          DB_URL: ${{secrets.DB_URL}}
+##          DB_USERNAME: ${{secrets.DB_USERNAME}}
+##          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
