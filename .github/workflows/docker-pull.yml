@@ -1,4 +1,5 @@
 name: Build and Publish Docker Image
+
 on:
   push:
     branches:
@@ -34,7 +35,7 @@ jobs:
         run: |
           docker build \
             -t ${{ secrets.DOCKER_USERNAME }}/learning:latest \
-            -t ${{ secrets.DOCKER_PASSWORD }}/learning:${{ github.sha }} .
+            -t ${{ secrets.DOCKER_USERNAME }}/learning:${{ github.sha }} .
 
       - name: Push Docker Images
         run: |
