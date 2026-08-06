@@ -17,7 +17,7 @@ services:
       - "3307:3306"
 
 
-  employee-service:
+  learning-service:
 
     image: learning:1.0
 
