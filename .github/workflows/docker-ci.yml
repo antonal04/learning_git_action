@@ -22,7 +22,7 @@ jobs:
         run: chmod +x mvnw
 
       - name: Build JAR
-        run: ./mvwn clean package -DskipTests
+        run: ./mvnw clean package -DskipTests
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
