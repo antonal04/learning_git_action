@@ -31,3 +31,12 @@ jobs:
         run: |
           docker build \
           -t learning:${{ github.sha }} .
+
+      - name: Compose Build
+        run: docker compose build
+
+      - name: Compose up
+        run: docker compose up -d
+
+      - name: Compose status
+        run: docker compose ps
