@@ -44,5 +44,8 @@ jobs:
       - name: Docker check container
         run: docker ps
 
+      - name : dock inspect
+        run: docker network inspect learning-network
+
       - name: docker learnign run
         run: docker logs -f learning-service
