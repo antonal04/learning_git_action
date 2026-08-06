@@ -1,32 +1,30 @@
-name: Windows Self Hosted Runner Test
-
-on:
-  push:
-    branches:
-      - login-feature
-
-jobs:
-
-  test:
-
-    runs-on:
-      - self-hosted
-      - windows
-
-
-
-    steps:
-
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-
-      - name: Show Windows Information
-        run: |
-          hostname
-          systeminfo
-
-
-      - name: Test Runner
-        run: |
-          echo Running on Windows Self Hosted Runner
+#name: Windows Self Hosted Runner Test
+#
+#on:
+#  push:
+#    branches:
+#      - login-feature
+#
+#jobs:
+#
+#  test:
+#
+#    runs-on:
+#      - self-hosted
+#      - windows
+#
+#    steps:
+#
+#      - name: Checkout Code
+#        uses: actions/checkout@v4
+#
+#
+#      - name: Show Windows Information
+#        run: |
+#          hostname
+#          systeminfo
+#
+#
+#      - name: Test Runner
+#        run: |
+#          echo Running on Windows Self Hosted Runner

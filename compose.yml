@@ -1,0 +1,46 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: employee_db
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+    networks:
+      - learning-network
+
+    ports:
+      - "3307:3306"
+
+
+  employee-service:
+
+    image: learning:1.0
+
+    container_name: learning-service
+
+    depends_on:
+      - mysql
+
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - learning-network
+
+
+volumes:
+
+  mysql-data:
+
+
+networks:
+
+  learning-network:
