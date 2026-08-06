@@ -1,54 +1,54 @@
-name: Docker CI
-on:
-  push:
-    branches:
-      - login-feature
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Grant execute permission to Maven Wrapper
-        shell: bash
-        run: chmod +x mvnw
-
-      - name: Build JAR
-        run: ./mvnw clean package -DskipTests
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Docker Image
-        run: |
-          docker build \
-          -t learning:${{ github.sha }} .
-
-      - name: Create learning network
-        run: docker network create learning-network
-
-      - name: Compose Build
-        run: docker compose build
-
-      - name: Compose up
-        run: docker compose up -d
-
-      - name: Compose status
-        run: docker compose ps
-
-      - name: Docker check container
-        run: docker ps
-
-      - name : dock inspect
-        run: docker network inspect learning-network
-
-      - name: docker learnign run
-        run: docker logs -f learning-service
+#name: Docker CI
+#on:
+#  push:
+#    branches:
+#      - login-feature
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Setup Java
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: temurin
+#          java-version: 17
+#
+#      - name: Grant execute permission to Maven Wrapper
+#        shell: bash
+#        run: chmod +x mvnw
+#
+#      - name: Build JAR
+#        run: ./mvnw clean package -DskipTests
+#
+#      - name: Setup Docker Buildx
+#        uses: docker/setup-buildx-action@v3
+#
+#      - name: Build Docker Image
+#        run: |
+#          docker build \
+#          -t learning:${{ github.sha }} .
+#
+#      - name: Create learning network
+#        run: docker network create learning-network
+#
+#      - name: Compose Build
+#        run: docker compose build
+#
+#      - name: Compose up
+#        run: docker compose up -d
+#
+#      - name: Compose status
+#        run: docker compose ps
+#
+#      - name: Docker check container
+#        run: docker ps
+#
+#      - name : dock inspect
+#        run: docker network inspect learning-network
+#
+#      - name: docker learnign run
+#        run: docker logs -f learning-service
