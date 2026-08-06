@@ -17,6 +17,10 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Grant execute permission to Maven Wrapper
+        shell: bash
+        run: chmod +x mvnw
+
       - name: Build JAR
         run: ./mvwn clean package -DskipTests
 
