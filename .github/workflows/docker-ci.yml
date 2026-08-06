@@ -32,6 +32,9 @@ jobs:
           docker build \
           -t learning:${{ github.sha }} .
 
+      - name: Create learning network
+        run: docker network create learning-network
+
       - name: Compose Build
         run: docker compose build
 
